@@ -2,19 +2,25 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Album {
 	
 	private String name;
 	private ArrayList<Photo> photos;
+	private String filename;
 	
 	public Album(String name, ArrayList<Photo> photos) {
 		this.name = name;
+		this.filename = null;
 		this.photos = photos;
 	}
 	
 	public Album(String name, String filename) {
 		this.name = name;
+		this.filename = filename;
 		initialize(filename);
 	}
 	
@@ -56,6 +62,31 @@ public class Album {
 			System.out.println("Error reading file");
 		}
 		
+	}
+	public boolean removePhoto(int index) {
+		if (index < 0 || index >= photos.size()){
+			return false;
+		} 
+		photos.remove(index);
+		save();
+		return true;
+	}
+
+		
+	private void save() {
+		if (filename == null){
+			return;
+		} 
+		try {
+		PrintWriter out = new PrintWriter(new FileWriter(filename));
+		for (Photo p : photos) {
+			out.println(p.getFilename() + "," + p.getDescription());
+		}
+		out.close();
+		}
+		catch (IOException e) {
+		System.out.println("Error writing file");
+		}
 	}
 	
 }
