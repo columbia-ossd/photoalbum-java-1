@@ -72,7 +72,16 @@ public class Album {
 		return true;
 	}
 
-		
+  public boolean editPhotoDescription(int index, String newDescription) {
+    if (index < 0 || index >= photos.size()) {
+      return false;
+    }
+
+    photos.get(index).setDescription(newDescription);
+    save();
+    return true;
+  }
+
 	private void save() {
 		if (filename == null){
 			return;

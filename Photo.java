@@ -10,6 +10,10 @@ public class Photo {
 	
 	public String getFilename() { return name; }
 	public String getDescription() { return desc; }
+
+  public void setDescription(String desc) {
+    this.desc = desc;
+  }
 	
 	
 	public String toString() {

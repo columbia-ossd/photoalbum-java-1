@@ -21,6 +21,9 @@ public class App {
 			else if (option == 3) {
 				removePhoto(a);
 			}
+      else if (option == 4) {
+        editPhotoDescription(a);
+      }
 			else if (option != 0) {
 				System.out.println("Invalid option");
 			}
@@ -33,6 +36,7 @@ public class App {
 		System.out.println("1: List all photos\n" + 
 				"2: View a photo\n" + 
 				"3: Remove a photo\n"+
+        "4: Edit photo description\n" +
 				"0: Exit");
 		System.out.print("Choose an option: ");
 		Scanner in = new Scanner(System.in);
@@ -98,6 +102,39 @@ public class App {
 		System.out.println("Removal cancelled.");
 		}
 	}
+
+  private static void editPhotoDescription(Album a) {
+    if (a.getNumPhotos() == 0) {
+      System.out.println("The album is empty.");
+      return;
+    }
+
+    for (int i = 0; i < a.getNumPhotos(); i++) {
+      System.out.println((i + 1) + ": " + a.getDescription(i));
+    }
+
+    System.out.print("Enter number of photo to edit: ");
+    Scanner in = new Scanner(System.in);
+    int choice = in.nextInt();
+    in.nextLine();
+
+    if (choice <= 0 || choice > a.getNumPhotos()) {
+      System.out.println("Invalid selection");
+      return;
+    }
+
+    System.out.print("Enter new description: ");
+    String newDescription = in.nextLine();
+
+    boolean edited = a.editPhotoDescription(choice - 1, newDescription);
+
+    if (edited) {
+      System.out.println("Photo description updated.");
+    }
+    else {
+      System.out.println("Error updating photo description.");
+    }
+  }
 
 	/*
 	 * This method can be used to show a single photo.
